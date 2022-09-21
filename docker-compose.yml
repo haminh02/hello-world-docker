@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  lottery:
+    image: new3
+    # build:
+    #   dockerfile: Dockerfile
+    #   context: ./
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+      - 3000:3000
+    working_dir: /lottery
+    volumes:
+      - ./:/NEW3
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: user
+      DB_PASSWORD: 123
+      DB_NAME: mydatabase
+
+  db:
+    image: postgres
+    volumes:
+      - db:/var/lib/postgresql/data
+    ports:
+      - 5432
+
+volumes:
+  db:
